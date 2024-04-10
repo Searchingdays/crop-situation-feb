@@ -1,0 +1,169 @@
+import pandas as pd
+import csv
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+#reader = PdfReader(r"C:\Users\pacha\Downloads\crop situation feb 2024.pdf")
+#page = reader.pages[3]
+#
+#what = page.extract_text()
+#print(what)
+
+b4 = pd.read_table(r"C:\Users\pacha\OneDrive\Desktop\research\Block 4_Person records.txt")
+
+b4 = pd.DataFrame(b4)
+
+
+
+b5 = pd.read_table(r"C:\Users\pacha\OneDrive\Desktop\research\Block 5_Monthly household expenditure on food and non-food items.txt")
+
+b5.loc[-1] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+
+b4.loc[-1] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]
+
+b5.columns = b5.iloc[-1]
+
+b4.columns = b4.iloc[-1]
+
+b4 = b4.drop(b4.index[-1])
+
+b5 = b5.drop(b5.index[-1])
+
+hhb5 = b5.loc[:,0]
+
+hhb4 = b4.loc[:,1]
+
+b5 = b5.sort_values(by=[0])
+
+b5 = pd.DataFrame(b5)
+
+b5 = b5.drop_duplicates()
+
+hhm = b4.loc[:,15]
+
+print(b5)
+
+q =[]
+agh = []
+r = pd.Series([])
+
+for i in range(67755):
+    if b4.loc[i,24] == 0:
+        q.append(b4.loc[i,1])
+    else:
+        continue
+
+#print(q)
+h = np.array(b5.loc[:,0])
+#print(h)
+
+
+for i in q:
+  if i in h:
+
+    agh.append(i)
+  else:
+    continue
+
+agh = np.array(agh)
+agh = np.unique(agh)
+
+#print(agh)
+
+o = b5.loc[:,17]
+e = b5.loc[:,19]
+o = np.array(o)
+e = np.array(e)
+np.nan_to_num(o,copy=False,nan=0)
+np.nan_to_num(e,copy=False,nan=0)
+o = np.delete(o,np.where(o == 0))
+e = np.delete(e,np.where(e == 0))
+uni, f = np.unique(o,return_counts=True)
+
+s = np.sort(o)
+p = np.sort(e)
+#print(s)
+#print(np.count_nonzero(o))
+
+l =[]
+q = []
+for i in range(0,10674):
+    q.append(e[i])
+    l.append(s[i])
+
+fig, [ax1, ax2] = plt.subplots(nrows=2,ncols=1)
+
+#sns.histplot(l)
+sns.histplot(p,kde=True)
+
+#r = np.array(r,dtype)
+
+
+#r = pd.DataFrame(r)
+#r = r.drop_duplicates()
+#print(np.shape(r))
+
+#sns.histplot(r)
+
+
+perhouse=[]
+
+#for i in range(705835):
+ #   a=0
+   # if b5.loc[i,0] == b5.loc[i+1,0]:
+  #      h = h+b5.loc[i,17]
+   # else:
+    #    continue
+    #perhouse.append(h)
+
+#print(perhouse)
+
+
+
+
+
+hhm = pd.DataFrame(data=[b4.loc[:,15],b4.loc[:,16],b4.loc[:,17],b4.loc[:,18],b4.loc[:,20],b4.loc[:,6],b4.loc[:,7],b4.loc[:,23],b4.loc[:,24]])
+
+hhm.insert(0,"-1",[1,1,2,23,0,1,181,11,0])
+
+#print(hhm)
+
+p = [[]]
+
+hh = b5.loc[377198,:]
+
+#print(hh)
+
+
+
+#print(hh)
+
+for i in range(67755):
+    if hhm.loc[16.0,i] == 1:
+        p.append(hhm.loc[:,i])
+    else:
+        continue
+
+p = pd.DataFrame(p)
+
+p.loc[0] = [1,1,2,23,0,1,181,11,0]
+
+#print(p)
+
+il =0
+g=[]
+for i in range(13666):
+    if p.loc[i,4] == 0:
+        il = il+1
+    else:
+        continue
+
+g = pd.DataFrame(g)
+
+
+#print(q.loc[:,14])
+
+#sns.kdeplot(b4.loc[:,24])
+
+plt.show()
